@@ -168,7 +168,9 @@
                      break;
                  }
              }
-         
+
+             doi = doi.replace(/-/g, "--");
+             doi = doi.replace(/_/g, "__");
              var res = `https://img.shields.io/badge/${style}-${doi}-${color}`;
          
              if (url){
