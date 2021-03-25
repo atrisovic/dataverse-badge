@@ -21,6 +21,7 @@
             <div class="mb-3">
                <label for="url" class="form-label">Dataset URL (optional)</label>
                <input type="url" class="form-control" placeholder="Ex. https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TJCLKP" id="url">
+               <div class="form-text">If absent, the URL will be formed as doi.org/DOI.</div>
             </div>
             <div class="mb-3" style="text-align: center;">
                <!-- Style -->
@@ -169,24 +170,20 @@
                  }
              }
 
+             if (url === ""){
+                url = `https://www.doi.org/${doi}`
+             }
+
              doi = doi.replace(/-/g, "--");
              doi = doi.replace(/_/g, "__");
              var res = `https://img.shields.io/badge/${style}-${doi}-${color}`;
          
-             if (url){
-                 document.getElementById("output").innerHTML = `<a href="${url}"><img src="${res}"></a>`;
-                 document.getElementById("html").innerHTML = `<a href="${url}"><img src="${res}"></a>`;
-                 document.getElementById("markdown").innerHTML = `[![](<${res}>)](${url})`;
-                 document.getElementById("sphinx").innerHTML = `.. image:: ${res}
+             document.getElementById("output").innerHTML = `<a href="${url}"><img src="${res}"></a>`;
+             document.getElementById("html").innerHTML = `<a href="${url}"><img src="${res}"></a>`;
+             document.getElementById("markdown").innerHTML = `[![](<${res}>)](${url})`;
+             document.getElementById("sphinx").innerHTML = `.. image:: ${res}
   :target: ${url}`;
-             }
-             else {
-                 document.getElementById("output").innerHTML = `<img src="${res}">`;
-                 document.getElementById("html").innerHTML = `<img src="${res}">`;
-                 document.getElementById("markdown").innerHTML = `![](<${res}>)`;
-                 document.getElementById("sphinx").innerHTML = `.. image:: ${res}`;
-             }
-            
+                         
              }
          }
       </script>
